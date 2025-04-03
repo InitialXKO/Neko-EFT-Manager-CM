@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application
+    x:Class="Neko.EFT.Manager.X.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neko.EFT.Manager.X" 
+xmlns:local1="using:Neko.EFT.Manager.X.Classes"
+    RequestedTheme="Light">
+
+    <Application.Resources>
+
+
+
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <!-- Other merged dictionaries here -->
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Other app resources here -->
+            <!-- Define AcrylicBrush -->
+            <LinearGradientBrush x:Key="GradientBrush" StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#FFD1DC" Offset="0"/>
+                <GradientStop Color="#7ED8E5" Offset="1"/>
+            </LinearGradientBrush>
+
+            <!-- 定义亚克力背景 -->
+            <AcrylicBrush x:Key="AcrylicBrush"
+              TintColor="#CCFFFFFF"
+              TintOpacity="0.2"
+              FallbackColor="#FFFFFF"/>
+
+            <!-- 全局背景资源 -->
+            <StaticResource x:Key="AppBackground" ResourceKey="AcrylicBrush"/>
+
+            <FontFamily x:Key="BenderFont">/Assets/Fonts/Bender.otf#Bender</FontFamily>
+
+            <FontFamily x:Key="ShanFont">Assets/Fonts/ShanFont.ttf#Shan</FontFamily>
+
+            <DataTemplate x:Key="BoxHeaderTemplate">
+                <TextBlock Text="{Binding}" FontFamily="{StaticResource BenderFont}" FontWeight="Bold"/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="AddressHeaderTemplate">
+                <TextBlock Text=" 服务器" FontFamily="{StaticResource BenderFont}" FontWeight="Bold" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="UsernameHeaderTemplate">
+                <TextBlock Text="用户名" FontFamily="{StaticResource BenderFont}" FontWeight="Bold" />
+            </DataTemplate>
+
+            <DataTemplate x:Key="PasswordHeaderTemplate">
+                <TextBlock Text="密码" FontFamily="{StaticResource BenderFont}" FontWeight="Bold" />
+            </DataTemplate>
+            <Style TargetType="NavigationViewItem">
+                <Setter Property="FontFamily" Value="Microsoft YaHei"/>
+            </Style>
+            <Style TargetType="NavigationView">
+                <Setter Property="FontFamily" Value="Microsoft YaHei"/>
+            </Style>
+            <Style x:Key="CardListViewStyle" TargetType="ListView">
+    <Setter Property="Padding" Value="0"/>
+    <Setter Property="IsTabStop" Value="False"/>
+    <Setter Property="TabNavigation" Value="Once"/>
+    <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled"/>
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+    <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto"/>
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+</Style>
+
+<Style x:Key="TimelineListViewStyle" TargetType="ListView" BasedOn="{StaticResource CardListViewStyle}">
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
+</Style>
+
+        </ResourceDictionary>
+
+
+
+
+
+    </Application.Resources>
+
+</Application>

@@ -1,0 +1,39 @@
+## Visual Studio files
+.vs/
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.suo
+*.cache
+*.log
+
+## Build results
+[Bb]uild/
+[Dd]ist/
+
+## NuGet Packages
+*.nupkg
+packages/
+*.nuget.props
+*.nuget.targets
+
+## MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+## Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+## Other
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.idea/
+.vscode/
+*.sln.iml

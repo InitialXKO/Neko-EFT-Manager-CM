@@ -1,0 +1,56 @@
+﻿<Page
+    x:Class="Neko.EFT.Manager.X.Pages.GameLoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neko.EFT.Manager.X.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+     FontFamily="Microsoft YaHei"
+    Background="Transparent"
+    >
+    <!--<Page.Background>
+        <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FFD1DC" Offset="0" />
+            <GradientStop Color="#7ED8E5" Offset="1" />
+        </LinearGradientBrush>
+    </Page.Background>-->
+
+    <Grid>
+
+        <!--<Grid.Background>
+            <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#FFD1DC" Offset="0" />
+                <GradientStop Color="#7ED8E5" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <NavigationView Grid.Row="0"
+                        PaneDisplayMode="Top"
+                        x:Name="LoginNavView"
+                        IsSettingsVisible="False"
+                        IsBackButtonVisible="Collapsed"
+                        IsPaneToggleButtonVisible="False"
+                        SelectionChanged="NavigationView_SelectionChanged"
+                        FontFamily="Microsoft YaHei">
+            <NavigationView.MenuItems>
+                
+                <NavigationViewItem Icon="Add" Content="" Tag="ToConnect" ToolTipService.ToolTip="Connect."  FontFamily="Microsoft YaHei"/>
+                <NavigationViewItem Icon="Read" Content="" Tag="ServerBook" ToolTipService.ToolTip="Server"  FontFamily="Microsoft YaHei"/>
+                <NavigationViewItem Icon="AllApps" Content="" Tag="VNT" ToolTipService.ToolTip="VNT"  FontFamily="Microsoft YaHei"/>
+            </NavigationView.MenuItems>
+        </NavigationView>
+
+        <Frame Grid.Row="1" x:Name="ContentFrame" Margin="6" CornerRadius="8">
+            <Frame.ContentTransitions>
+                <TransitionCollection>
+                    <NavigationThemeTransition/>
+                </TransitionCollection>
+            </Frame.ContentTransitions>
+        </Frame>
+    </Grid>
+</Page>

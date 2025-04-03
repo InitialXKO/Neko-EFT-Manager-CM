@@ -1,0 +1,97 @@
+﻿<Page
+    x:Class="Neko.EFT.Manager.X.Pages.ModsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neko.EFT.Manager.X.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/bg6.jpg" x:Name="bgmods" Stretch="UniformToFill" />
+    </Page.Background>
+    <Page.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="DllInfoTemplate">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16" />
+                    <TextBlock Text="{Binding Version}" FontSize="14" />
+                    <TextBlock Text="{Binding Description}" FontSize="14" />
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Margin="10" x:Name="MainGrid" CornerRadius="6" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Loading Animation -->
+        <ProgressRing x:Name="LoadingRing" IsActive="True" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100"/>
+
+        <!-- Mod Grid -->
+        <Grid Name="ModGrid" Visibility="Collapsed" CornerRadius="6" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="客户端模组管理器" FontFamily="{StaticResource BenderFont}" FontSize="32" FontWeight="Bold" TextDecorations="Underline" Margin="10"/>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" CornerRadius="6">
+                <ListView
+                    Name="ModsList"
+                    BorderThickness="1"
+                    BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                    SelectionChanged="ModsList_SelectionChanged"
+                     AllowDrop="True"
+                  DragOver="ModsList_DragOver"
+                   Drop="ModsList_Drop"
+                    Margin="10"
+                    CornerRadius="6"
+                    ItemsSource="{x:Bind Mods}"
+                    KeyDown="ModsList_KeyDown"
+                    HorizontalAlignment="Stretch">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Margin="5" Grid.Column="0">
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="18"/>
+                                    <!-- 新增 TextBlock 用于显示自定义名称 -->
+                                    <TextBlock Text="{Binding CustomName}"
+                           Foreground="DarkOrange"
+                           FontStyle="Italic"
+                           Margin="0,5,0,0" />
+                                    <TextBlock Text="{Binding Version}" Foreground="DarkGoldenrod" Margin="0,5,0,0"/>
+                                    <TextBlock Text="{Binding Description}" TextWrapping="WrapWholeWords" MaxHeight="60" Margin="0,5,0,0" Foreground="SeaGreen"/>
+                                </StackPanel>
+                                <CheckBox Grid.Column="1" IsChecked="{Binding IsEnabled}" Content="启用" VerticalAlignment="Center" Margin="10,0" Checked="ModCheckBox_Checked" Unchecked="ModCheckBox_Unchecked"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+            </ScrollViewer>
+        </Grid>
+
+        <!-- Button positioned at the bottom of the Grid -->
+        <Button  Content="安装模组" Click="InstallMod_Click" Width="200" Height="50" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" x:Name="InstallModButton" Grid.Row="1" CornerRadius="8" FontSize="17">
+            <!--<Button.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#FFD1DC" Offset="1"/>
+                    <GradientStop Color="#7ED8E5" Offset="0"/>
+                </LinearGradientBrush>
+            </Button.Background>-->
+        </Button>
+
+        <!-- Background Switch Button -->
+        <Button Content="切换主题" Click="SwitchBackground_Click" Width="150" Height="40" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Grid.Row="1" CornerRadius="8" FontSize="17" x:Name="SwitchBackgroundButton"/>
+    </Grid>
+</Page>

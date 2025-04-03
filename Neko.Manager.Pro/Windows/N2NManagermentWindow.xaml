@@ -1,0 +1,33 @@
+<Window
+    x:Class="Neko.EFT.Manager.X.Windows.N2NManagermentWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="N2N Management">
+
+    <StackPanel Orientation="Vertical" Padding="10">
+
+        <TextBlock Text="房间名称" Margin="0,0,0,10"/>
+        <TextBox x:Name="RoomNameTextBox" Margin="0,0,0,20"/>
+
+        <TextBlock Text="成员名称" Margin="0,0,0,10"/>
+        <TextBox x:Name="MemberNameTextBox" Margin="0,0,0,20"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+            <Button Content="创建房间" Click="CreateRoom_Click" Margin="10,0"/>
+            <Button Content="加入房间" Click="JoinRoom_Click" Margin="10,0"/>
+        </StackPanel>
+
+        <TextBlock Text="成员列表" Margin="0,0,0,10"/>
+        <ListBox x:Name="MemberList" Height="100" Margin="0,0,0,20"/>
+
+        <TextBlock Text="消息" Margin="0,0,0,10"/>
+        <ListBox x:Name="MessageList" Height="200" Margin="0,0,0,10"/>
+
+        <TextBox x:Name="MessageTextBox" Margin="0,0,0,10"/>
+        <Button Content="发送消息" Click="SendMessage_Click"/>
+
+    </StackPanel>
+</Window>

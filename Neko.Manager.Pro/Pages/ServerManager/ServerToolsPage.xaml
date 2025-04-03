@@ -1,0 +1,214 @@
+﻿<Page
+    x:Class="Neko.EFT.Manager.X.Pages.ServerManager.ServerToolsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neko.EFT.Manager.X.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    >
+
+    <Page.Resources>
+        <!-- 定义亚克力画笔 -->
+        <AcrylicBrush x:Key="AcrylicBrush"
+                      TintColor="#CCFFFFFF"
+                      TintOpacity="0.4"
+                      FallbackColor="#FFFFFF"/>
+        <SolidColorBrush x:Key="MicaBrush" Color="#80222222"/>
+    </Page.Resources>
+
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/acg/001.jpg" x:Name="bg1" Stretch="UniformToFill"/>
+    </Page.Background>
+
+    <Grid x:Name="rootGrid"  >
+
+        <Grid Background="{StaticResource MicaBrush}" Margin="10" CornerRadius="10" Padding="10">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="10">
+                    <!-- Section: 小工具 -->
+                    <TextBlock Text="工具" FontSize="24" FontWeight="Bold" Margin="0,20,0,10" Foreground="DarkGray"/>
+
+                    <Grid Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- 自动大小，根据内容调整 --><!--
+                            <RowDefinition Height="150"/>-->
+                            <!-- 固定高度，20 像素间隔 -->
+                            <!--<RowDefinition Height="Auto"/>
+                            --><!-- 自动大小，根据内容调整 -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Button: 服务端管理器 -->
+                        <Button Name="OpenEFTFolderButton" Width="200" Height="100" Margin="10" Grid.Column="0"
+                            ToolTipService.ToolTip="打开EFT文件目录." Click="OpenEFTFolderButton_ClickAsync"
+                            Background="{StaticResource AcrylicBrush}" CornerRadius="9">
+
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                <SymbolIcon Symbol="OpenFile" Margin="0,0,0,10"/>
+                                <TextBlock Text="EFT文件目录"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Button: 获取EFT资源 -->
+                        <Button Name="OpenServerModFolderButton" Width="200" Height="100" Margin="10" Grid.Column="1"
+                            ToolTipService.ToolTip="打开模组目录." Click="OpenServerModFolderButton_ClickAsync"
+                            Background="{StaticResource AcrylicBrush}" CornerRadius="9">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                <SymbolIcon Symbol="OpenFile" Margin="0,0,0,10"/>
+                                <TextBlock Text="模组目录"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Button: 位置编辑器 --><!--
+                        <Button Name="OpenLocationEditorButton" Width="200" Height="100" Margin="10" Grid.Column="2"
+                    ToolTipService.ToolTip="打开位置编辑器 GUI." Click="OpenLocationEditorButton_Click"
+                     Background="{StaticResource AcrylicBrush}" CornerRadius="9">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                <SymbolIcon Symbol="Edit" Margin="0,0,0,10"/>
+                                <TextBlock Text="位置编辑器"/>
+                            </StackPanel>
+                        </Button>
+
+
+                        --><!--Button: 新的按钮--><!--
+                        <Button Name="CleanTempFilesButton" Width="200" Height="100" Margin="10" Grid.Column="0" Grid.Row="1"
+                            ToolTipService.ToolTip="清理临时文件" Click="CleanTempFiles_Click"
+                            Background="{StaticResource AcrylicBrush}" CornerRadius="6">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                <SymbolIcon Symbol="Delete"  Margin="0,0,0,10"/>
+                                <TextBlock Text="清理临时文件"/>
+                            </StackPanel>
+                        </Button>
+
+                        --><!--Button: 第四列的按钮--><!--
+                        <Button Name="killGameproc" Width="200" Height="100" Margin="10" Grid.Column="3"
+                            ToolTipService.ToolTip="结束游戏后台进程." Click="KillGameprocAsync_Click"
+                            Background="{StaticResource AcrylicBrush}" CornerRadius="6">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                <SymbolIcon Symbol="MoveToFolder" Margin="0,0,0,10"/>
+                                <TextBlock Text="结束游戏后台进程"/>
+                            </StackPanel>
+                        </Button>-->
+                    </Grid>
+
+                    <!-- Section: 文件操作 -->
+                    <TextBlock Text="日志" FontSize="24" FontWeight="Bold" Margin="0,20,0,10" Foreground="DarkGray"/>
+
+                    <Grid Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Button: 打开EFT安装文件夹 -->
+                        <Button Name="OpenEFTLogButton" Width="200" Height="100" Margin="10" Grid.Column="0"
+                            ToolTipService.ToolTip="打开EFT日志文件." Click="OpenEFTLogButton_ClickAsync"
+                            Background="{StaticResource AcrylicBrush}" CornerRadius="9">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                <SymbolIcon Symbol="Folder" Margin="0,0,0,10"/>
+                                <TextBlock Text="打开EFT日志文件"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Button: 打开BepInEx插件目录 --><!--
+                        <Button Name="OpenBepInExFolderButton" Width="200" Height="100" Margin="10" Grid.Column="1"
+                            ToolTipService.ToolTip="打开BepInEx 插件目录." Click="OpenBepInExFolderButton_ClickAsync"
+                            Background="{StaticResource AcrylicBrush}" CornerRadius="9">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                <SymbolIcon Symbol="Folder" Margin="0,0,0,10"/>
+                                <TextBlock Text="打开插件文件目录"/>
+                            </StackPanel>
+                        </Button>
+
+                        --><!--Button: 新的按钮--><!--
+                        <Button Name="TEST4" Width="200" Height="100" Margin="10" Grid.Column="2"
+                            ToolTipService.ToolTip="TEST." Click="TEST4_Click"
+                            Background="{StaticResource AcrylicBrush}" CornerRadius="6">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                <SymbolIcon Symbol="Add" Margin="0,0,0,10"/>
+                                <TextBlock Text="通知测试"/>
+                            </StackPanel>
+                        </Button>-->
+
+                        <!-- Button: 第四列的按钮 -->
+                        <!--
+                    <Button Name="TEST6" Width="200" Height="100" Margin="10" Grid.Column="3"
+                            ToolTipService.ToolTip="TEST." Click="TEST6_Click"
+                            Background="{ThemeResource SystemControlAcrylicWindowBrush}" CornerRadius="6">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                            <SymbolIcon Symbol="Add" Margin="0,0,0,10"/>
+                            <TextBlock Text="第四列的按钮"/>
+                        </StackPanel>
+                    </Button>-->
+                    <!--</Grid>-->
+
+                    <!-- Section: 一般工具 -->
+                    <!--<TextBlock Text="日志工具" FontSize="24" FontWeight="Bold" Margin="0,20,0,10" Foreground="DarkGray"/>
+
+                    <Grid Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        --><!-- Button: 打开EFT日志 --><!--
+                        <Button Name="OpenEFTLogButton" Width="200" Height="100" Margin="10" Grid.Column="0" 
+                            ToolTipService.ToolTip="打开EFT日志文件." Click="OpenEFTLogButton_ClickAsync"
+                            Background="{StaticResource AcrylicBrush}" CornerRadius="9">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                <SymbolIcon Symbol="OpenFile" Margin="0,0,0,10"/>
+                                <TextBlock Text="打开EFT日志"/>
+                            </StackPanel>
+                        </Button>-->
+
+                        <!-- Button: 位置编辑器 -->
+                        <!--
+                    <Button Name="OpenLocationEditorButton" Width="200" Height="100" Margin="10" Grid.Column="1"
+                            ToolTipService.ToolTip="打开位置编辑器 GUI." Click="OpenLocationEditorButton_Click"
+                            Background="{ThemeResource SystemControlAcrylicWindowBrush}" CornerRadius="9">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                            <SymbolIcon Symbol="Edit" Margin="0,0,0,10"/>
+                            <TextBlock Text="位置编辑器"/>
+                        </StackPanel>
+                    </Button>-->
+
+                        <!-- Button: 新的按钮 -->
+                        <!--
+                    <Button Name="TEST7" Width="200" Height="100" Margin="10" Grid.Column="2"
+                            ToolTipService.ToolTip="TEST." Click="TEST7_Click"
+                            Background="{ThemeResource SystemControlAcrylicWindowBrush}" CornerRadius="6">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                            <SymbolIcon Symbol="Add" Margin="0,0,0,10"/>
+                            <TextBlock Text="新的按钮"/>
+                        </StackPanel>
+                    </Button>
+
+                    -->
+                        <!-- Button: 第四列的按钮 -->
+                        <!--
+                    <Button Name="TEST8" Width="200" Height="100" Margin="10" Grid.Column="3"
+                            ToolTipService.ToolTip="TEST." Click="TEST8_Click"
+                            Background="{ThemeResource SystemControlAcrylicWindowBrush}" CornerRadius="6">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                            <SymbolIcon Symbol="Add" Margin="0,0,0,10"/>
+                            <TextBlock Text="第四列的按钮"/>
+                        </StackPanel>
+                    </Button>-->
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>

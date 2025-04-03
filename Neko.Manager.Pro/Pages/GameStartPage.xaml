@@ -1,0 +1,268 @@
+﻿<Page
+    x:Class="Neko.EFT.Manager.X.Pages.GameStartPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neko.EFT.Manager.X.Pages"
+    xmlns:converters="using:Neko.EFT.Manager.X.Converters"
+    xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
+xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/bg040.png" x:Name="bg1" Stretch="UniformToFill"/>
+    </Page.Background>
+
+    <!-- 定义颜色 -->
+    <Page.Resources>
+        <SolidColorBrush x:Key="DarkBackgroundBrush" Color="#2e2e2e"/>
+        <SolidColorBrush x:Key="LightBackgroundBrush" Color="LightGray"/>
+        <SolidColorBrush x:Key="LightTextBrush" Color="LightGray"/>
+        <SolidColorBrush x:Key="AccentColorBrush" Color="#F7D8DF"/>
+
+        <!-- 定义亚克力画笔 -->
+        <AcrylicBrush x:Key="AcrylicBrush"
+          TintColor="#CCFFFFFF"
+          TintOpacity="0.4"
+          FallbackColor="#FFFFFF"/>
+
+    <AcrylicBrush x:Key="AcrylicBrush2"
+                  TintColor="#CCFFFFFF"
+                  TintOpacity="0.4"
+                  FallbackColor="#aFFFF1"/>
+
+        <!-- 添加状态转换器 -->
+        <converters:RaidInformationFormatter x:Key="RaidInformationFormatter"/>
+        <converters:ActivityStatusToVisibilityConverter x:Key="ActivityStatusToVisibilityConverter"/>
+        <converters:ActivityStatusToColorConverter x:Key="ActivityStatusToColorConverter"/>
+        <converters:LevelPrefixConverter x:Key="LevelPrefixConverter"/>
+        <converters:ModInfoConverter x:Key="ModInfoConverter"/>
+    </Page.Resources>
+
+    <Grid x:Name="MainGrid" x:FieldModifier="Public">
+        <Canvas>
+            <Border CornerRadius="10"  Padding="20" Margin="10" Canvas.Top="340" Background="{StaticResource AcrylicBrush}">
+                
+                <StackPanel>
+                    <!-- 地址输入框 -->
+                    <TextBlock Name="ServerName" Width="249" HorizontalAlignment="Left" Text="服务器"  FontSize="16"  Foreground="#3d3d3f"  Margin="0,0,0,10" IsHitTestVisible="False" />
+
+                    <!-- 服务器状态文本 -->
+                    <TextBlock Name="ServerStatusTextBlock" Width="249" HorizontalAlignment="Left" Text="服务器状态：未知" Foreground="#3d3d3f" FontSize="16"/>
+                </StackPanel>
+            </Border>
+        </Canvas>
+        <Canvas>
+            <Border CornerRadius="10"  Padding="20" Margin="10" Canvas.Top="340" Canvas.Left="309" Background="{StaticResource AcrylicBrush}">
+
+                
+                <StackPanel>
+
+                    <TextBlock Name="ServerVersion" Width="305" HorizontalAlignment="Left" Text="服务器运行版本"  FontSize="16"  Foreground="#3d3d3f"  Margin="0,0,0,10" IsHitTestVisible="False" />
+
+
+                    <TextBlock Name="ServerEFTVersion" Width="249" HorizontalAlignment="Left" Text="可用客户端" Foreground="#3d3d3f" FontSize="16"/>
+                </StackPanel>
+            </Border>
+        </Canvas>
+        <ScrollViewer Width="480" Height="255" Margin="-620,-250,0,10" Padding="3" Background="{StaticResource AcrylicBrush}" CornerRadius="9">
+            <!-- 左侧面板 -->
+            <StackPanel VerticalAlignment="Top" CornerRadius="9" Padding="22" x:Name="UserInfoPanel" Background="{StaticResource AcrylicBrush}" > 
+
+                <TextBlock x:Name="Username" Text="账号名称" Foreground="Black" Margin="0,0,0,5" />
+                <TextBlock x:Name="Nickname" Text="昵称" Foreground="Black" Margin="0,0,0,5" />
+                <TextBlock x:Name="Level" Text="等级" Foreground="Black" Margin="0,0,0,5" />
+
+                <!-- 用 StackPanel 包裹 ReturnDataTextBlock 和 AccountIdTextBlock -->
+                <StackPanel Orientation="Horizontal" Margin="0,-7,0,0">
+                    <!-- 添加账号ID的TextBlock -->
+                    <TextBlock x:Name="AccountIdTextBlock" Text="账号ID：" Foreground="Black" VerticalAlignment="Center" />
+                    <HyperlinkButton x:Name="ReturnDataTextBlock" Content="null" Foreground="LightGray" VerticalAlignment="Center" FontWeight="Bold" />
+                </StackPanel>
+
+                <TextBlock x:Name="AccountEdition" Text="账号版本" Foreground="Black" Margin="0,0,0,10" />
+
+                <!-- 水平容器包裹 CheckBox 和 Expander -->
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Content="可选项" Foreground="Black" Margin="0,30,10,0" />
+
+                    <!-- Mod 信息的 Expander -->
+                    <Expander Header="已启用的 Mods" x:Name="ModsExpander" Margin="5,30,0,0" Background="{StaticResource AcrylicBrush}" Width="290" CornerRadius="7" Padding="5">
+                        <Expander.Content>
+                            <ItemsControl ItemsSource="{Binding ModDataList}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0,7,0,0" Padding="8" Background="{StaticResource AcrylicBrush}" CornerRadius="7" BorderThickness="1" BorderBrush="{StaticResource AcrylicBrush}">
+                                            <!-- 添加 Margin -->
+                                            <RichTextBlock Padding="10" Margin="3">
+                                                <Paragraph>
+                                                    <Run Text="{Binding name}" FontWeight="Bold" />
+                                                    <LineBreak />
+                                                    <Run Text="作者: " />
+                                                    <Run Text="{Binding author}" />
+                                                    <LineBreak />
+                                                    <Run Text="版本: " />
+                                                    <Run Text="{Binding version}" />
+                                                    <LineBreak />
+                                                    <Run Text="添加日期: " />
+                                                    <Run Text="{Binding FormattedDateAdded}" />
+                                                </Paragraph>
+                                            </RichTextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Expander.Content>
+                    </Expander>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+
+
+
+        <Border CornerRadius="10" 
+        Padding="15" 
+        Margin="10" 
+        Background="{StaticResource AcrylicBrush}" 
+        Width="400" 
+        Height="300" 
+        VerticalAlignment="Top" 
+        HorizontalAlignment="Right">
+
+            <!-- 使用 Grid 代替 StackPanel -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <!-- 分配剩余空间给 ListView -->
+                </Grid.RowDefinitions>
+
+                <!-- 刷新按钮 -->
+                <Button Content="刷新列表" 
+                Click="RefreshOnlinePlayersButton_Click"
+                CornerRadius="5"
+                Background="{StaticResource AcrylicBrush2}"
+                HorizontalAlignment="Left" 
+                Margin="7,0,0,0"
+                Grid.Row="0"/>
+
+                <!-- 在线玩家数量 -->
+                <TextBlock x:Name="OnlinePlayerCountTextBlock" 
+                   HorizontalAlignment="Right" 
+                   FontSize="16" 
+                   Foreground="#3d3d3f" 
+                   Margin="0,0,10,10" 
+                   Grid.Row="1"/>
+
+                <!-- 玩家列表 -->
+                <ListView x:Name="OnlinePlayersListView" 
+                  Background="Transparent"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  HorizontalContentAlignment="Stretch"
+                  CornerRadius="6"
+                  Padding="0"
+                  Grid.Row="2"
+                  Height="200">
+                    <!-- 固定高度以确保滚动条出现 -->
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="6" 
+                Background="{StaticResource AcrylicBrush}"
+                Margin="-8,6,-4,6" 
+                Padding="10">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="25"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- 玩家状态标志 -->
+                                    <Ellipse Width="12" 
+                         Height="12" 
+                         Fill="{Binding ActivityStatus, Converter={StaticResource ActivityStatusToColorConverter}}"
+                         VerticalAlignment="Center" 
+                         Grid.Row="0" 
+                         Grid.Column="0"
+                         Stroke="WhiteSmoke" 
+                         StrokeThickness="1"/>
+
+                                    <!-- 玩家昵称 -->
+                                    <TextBlock Text="{Binding Nickname}" 
+                           FontWeight="Bold" 
+                           VerticalAlignment="Center" 
+                           Grid.Row="0" 
+                           Grid.Column="1" 
+                           Foreground="Black"/>
+
+                                    <!-- 玩家等级 -->
+                                    <TextBlock Text="{Binding Level, Converter={StaticResource LevelPrefixConverter}}"
+                           Foreground="Black"
+                           Grid.Row="0"
+                           Grid.Column="2"
+                           Margin="20,0"/>
+
+                                    <!-- 玩家状态文本 -->
+                                    <TextBlock Text="{Binding ActivityStatus}" 
+                           VerticalAlignment="Center" 
+                           Grid.Row="0" 
+                           Grid.Column="3" 
+                           Foreground="DarkSlateGray"/>
+
+                                    <!-- 战局详情 -->
+                                    <TextBlock Text="{Binding ParsedRaidInformation}" 
+                           Foreground="Gray" 
+                           FontStyle="Italic" 
+                           Grid.Row="1" 
+                           Grid.ColumnSpan="6" 
+                           
+                           Margin="5,0,0,0"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+
+                </ListView>
+            </Grid>
+        </Border>
+
+
+
+
+
+
+        <!-- 底部栏 -->
+        <Grid  Height="70" VerticalAlignment="Bottom" x:Name="DownBar" CornerRadius=" 8" Padding="10" Margin="10" Background="{StaticResource AcrylicBrush}">
+           
+            <Button Content="登出" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="Black" Background="{StaticResource AcrylicBrush}" Width="150"  Height="45" Click="Quit_Click" FontSize="15" CornerRadius="7"/>
+            <Button Content="开始游戏" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0" Foreground="Black" Background="{StaticResource AcrylicBrush2}" Width="150" Height="45" CornerRadius="7" FontSize="15" Click="StartGame_Click"/>
+		</Grid>
+
+
+        <muxc:InfoBar MaxWidth="480"
+  Margin="10,330,10,0" 
+HorizontalAlignment="Right"
+  VerticalAlignment="Top"
+                      FontWeight="Light"
+  IsClosable="True"
+  x:Name="NotificationInfoBar">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:StackedNotificationsBehavior x:Name="NotificationQueue" />
+            </interactivity:Interaction.Behaviors>
+        </muxc:InfoBar>
+    </Grid>
+</Page>

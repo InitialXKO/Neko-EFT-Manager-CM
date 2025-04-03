@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="Neko.EFT.Manager.X.Windows.GameResDLWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neko.EFT.Manager.X"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Window.SystemBackdrop>
+        <DesktopAcrylicBackdrop/>
+    </Window.SystemBackdrop>
+
+    <Grid>
+        <!--<Grid.Background>
+            <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#FFD1DC" Offset="0" />
+                <GradientStop Color="#7ED8E5" Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>-->
+
+        <Grid.Resources>
+            <TeachingTip x:Name="InstallPathTip"
+                Title="需要服务端"
+                Subtitle="服务端安装目录没有设置，请在设置页面设置你的服务端安装目录."
+                PreferredPlacement="Bottom">
+                <TeachingTip.IconSource>
+                    <SymbolIconSource Symbol="Setting"/>
+                </TeachingTip.IconSource>
+            </TeachingTip>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="AppTitleBar" Grid.Row="0" Height="30" Width="Auto" >
+            
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ImageIcon Source="ms-appx:///Assets/ICON.png" HorizontalAlignment="Left" Width="16" Height="16" Margin="8,0" Grid.Column="0"/>
+            <TextBlock x:Name="AppTitleTextBlock" Text="SPT-EFT ResDownload Manager" TextWrapping="NoWrap" VerticalAlignment="Center" Grid.Column="1" FontFamily="{StaticResource BenderFont}" Foreground="{StaticResource AppBarItemForegroundThemeBrush}"/>
+        </Grid>
+
+
+        <StackPanel Name="InfoBarStackPanelS" Grid.Row="1" x:FieldModifier="Public">
+           
+           
+        </StackPanel>
+
+        <NavigationView PaneDisplayMode="Left"
+                IsBackButtonVisible="Collapsed"
+                IsPaneToggleButtonVisible="False"
+                ItemInvoked="NavView_ItemInvoked"
+                Loaded="NavView_Loaded"
+                        IsSettingsVisible="False"
+                OpenPaneLength="150"
+                Grid.Row="2" Name="NavView" >
+
+            <NavigationView.MenuItems>
+                
+                <NavigationViewItem Icon="Play" Content="游戏资源" Tag="GameRes" ToolTipService.ToolTip="游戏相关资源下载." FontFamily="{StaticResource BenderFont}"/>
+                <NavigationViewItem Icon="AllApps" Content="游戏支持" Tag="GameSupport" ToolTipService.ToolTip="各种各样的教程与支持内容." FontFamily="{StaticResource BenderFont}"/>
+                
+                <!--<NavigationViewItem Icon="MapDrive" Content="启动服务端" Tag="Server" ToolTipService.ToolTip="启动服务端" FontFamily="{StaticResource BenderFont}"/>
+                <NavigationViewItem Icon="Setting" Content="配置服务端" Tag="ConfigServer" ToolTipService.ToolTip="管理服务端" FontFamily="{StaticResource BenderFont}"/>
+                <NavigationViewItem Icon="OtherUser" Content="服务端模组" Tag="ServerMods" ToolTipService.ToolTip="管理服务端模组" FontFamily="{StaticResource BenderFont}"/>
+                <NavigationViewItem Icon="Account" Content="存档管理器" Tag="ProfileManager" ToolTipService.ToolTip="存档管理" FontFamily="{StaticResource BenderFont}"/>-->
+
+
+                <!--<NavigationViewItem Icon="Library" Content="模组" Tag="Mods" ToolTipService.ToolTip="模组." FontFamily="{StaticResource BenderFont}"/>-->
+            </NavigationView.MenuItems>
+
+            <Frame x:Name="ContentFrame" Margin="6" CornerRadius="8">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition/>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
+
+        </NavigationView>
+
+        <StackPanel Name="ActionPanel" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Visibility="Collapsed">
+            <ProgressBar Name="ActionPanelBar" Margin="10" Width="500" MinWidth="100" MaxWidth="150"/>
+            <TextBlock Name="ActionPanelText" Margin="10"/>
+            <ProgressRing Name="ActionPanelRing" IsIndeterminate="True" Visibility="Collapsed" Margin="10" Height="16" Width="16"/>
+        </StackPanel>
+
+    </Grid>
+
+</Window>

@@ -1,0 +1,58 @@
+﻿<Window
+    x:Class="Neko.EFT.Manager.X.Windows.VntManagementWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neko.EFT.Manager.X.Windows"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ui="using:CommunityToolkit.WinUI"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d"
+    >
+
+    <Window.SystemBackdrop>
+        <DesktopAcrylicBackdrop/>
+    </Window.SystemBackdrop>
+
+    <Grid x:Name="RootGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- App Title Bar -->
+        <Grid x:Name="AppTitleBar" Grid.Row="0" Height="30" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Source="ms-appx:///Assets/ICON.png" HorizontalAlignment="Left" Width="16" Height="16" Margin="8,0" Grid.Column="0"/>
+            <TextBlock x:Name="AppTitleTextBlock" 
+                   Text="Neko VPN Management" 
+                   TextWrapping="NoWrap" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Left"
+                   FontFamily="{StaticResource BenderFont}" 
+                   Foreground="{StaticResource AppBarItemForegroundThemeBrush}" 
+                   Margin="10,0,0,0" 
+                   Grid.Column="1"/>
+        </Grid>
+
+        <!-- Main TabView to switch between Pages -->
+        <TabView Grid.Row="1" x:Name="MainTabView" SelectionChanged="OnTabSelectionChanged">
+            <TabView.TabItems>
+                
+                <TabViewItem Header="创建房间">
+                     
+                    <Frame x:Name="DeviceListPageFrame" />
+                    
+                </TabViewItem>
+                <TabViewItem Header="联机配置">
+                    <!-- 通过Frame加载配置管理页面 -->
+                    <Frame x:Name="ConfigManagementPageFrame" x:FieldModifier="Public"/>
+                </TabViewItem>
+            </TabView.TabItems>
+        </TabView>
+    </Grid>
+</Window>

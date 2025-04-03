@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Neko.EFT.Manager.X.Pages.SetSITConfigPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neko.EFT.Manager.X.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <TextBox x:Name="SITPortTextBox" Header="SIT端口值（默认为6970）" Grid.Row="0" Grid.Column="0"  TextChanged="SITPortTextBox_TextChanged"/>
+        <Button Content="保存" Click="SaveSITPortButton_Click" Grid.Row="0" Grid.Column="1" Width="100" VerticalAlignment="Center" Margin="20,28,10,0"  />
+
+        <TextBox x:Name="PSTRTextBox" Header="PSTR即玩家状态的刷新间隔时间值（单位:ms,默认为666）" Grid.Row="1" Grid.Column="0" Margin="0,10,0,0" TextChanged="PSTRTextBox_TextChanged" />
+        <Button Content="保存" Click="SavePSTRButton_Click" Grid.Row="1" Grid.Column="1" Width="100" VerticalAlignment="Center" Margin="20,37,10,0" />
+    </Grid>
+
+</Page>

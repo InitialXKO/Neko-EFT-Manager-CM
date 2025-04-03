@@ -1,0 +1,93 @@
+﻿<Page
+    x:Class="Neko.EFT.Manager.X.Pages.GameResManager.GameResDLManagerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neko.EFT.Manager.X.Pages.GameResManager"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <AcrylicBrush x:Key="AcrylicBrush"
+                      TintColor="#CCFFFFFF"
+                      TintOpacity="0.6"
+                      FallbackColor="#FFFFFF"/>
+        <SolidColorBrush x:Key="MicaBrush" Color="#40222222"/>
+    </Page.Resources>
+
+    <Page.Background>
+        <ImageBrush ImageSource="/Assets/acg/001.jpg" Stretch="UniformToFill" />
+    </Page.Background>
+
+    <!-- 使用 Grid 让 ListView 正确滚动 -->
+    <Grid x:Name="rootGrid" Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- 标题 -->
+            <RowDefinition Height="Auto"/>
+            <!-- 加载动画 -->
+            <RowDefinition Height="*"/>
+            <!-- 资源列表，占满剩余空间 -->
+        </Grid.RowDefinitions>
+
+        <!-- 标题 -->
+        <TextBlock Text="游戏资源下载" FontSize="32" FontWeight="ExtraBold" Foreground="White"
+                   Grid.Row="0"/>
+
+        <!-- 加载动画 -->
+        <ProgressRing x:Name="ProgressRingLoading" IsActive="False" Width="50" Height="50"
+                      HorizontalAlignment="Center" Grid.Row="1"/>
+
+        <!-- 资源列表 -->
+        <ListView ItemsSource="{x:Bind GameResources, Mode=OneWay}"
+                  SelectionMode="None"
+                  CornerRadius="5"
+                  Grid.Row="2">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:GameResource">
+                    <controls:Expander Background="{StaticResource AcrylicBrush}"
+                                       IsExpanded="False"
+                                       HorizontalAlignment="Stretch">
+                        <controls:Expander.Header>
+                            <Grid Padding="15">
+                                <StackPanel>
+                                    <TextBlock Text="服务端版本:" FontSize="15" Foreground="Black"/>
+                                    <TextBlock Text="{x:Bind ServerVersion}" FontSize="20" FontWeight="Bold" Foreground="Black" FontFamily="/Assets/Fonts/ShanFont.ttf#DouFont-PinboGB-Flash"/>
+                                </StackPanel>
+                            </Grid>
+                        </controls:Expander.Header>
+
+                        <!-- 详情部分 -->
+                        <Grid Background="{StaticResource MicaBrush}" Padding="15" CornerRadius="5" Width="1000" >
+                            <StackPanel Spacing="10">
+                                <TextBlock Text="客户端版本:" FontSize="14" Foreground="White"/>
+                                <TextBlock Text="{x:Bind ClientVersion}" FontSize="16" Foreground="LightSeaGreen"/>
+
+                                <StackPanel Orientation="Horizontal" Spacing="20">
+                                    <TextBlock Text="📁 客户端大小:" FontSize="14" Foreground="LightGray"/>
+                                    <TextBlock Text="{x:Bind ClientFileSize}" FontSize="14" Foreground="White"/>
+
+                                    <TextBlock Text="🖥️ 服务端大小:" FontSize="14" Foreground="LightGray"/>
+                                    <TextBlock Text="{x:Bind ServerFileSize}" FontSize="14" Foreground="White"/>
+                                </StackPanel>
+
+                                <TextBlock Text="{x:Bind Description}" FontSize="14" Foreground="White"/>
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
+                                    <Button Content="查看详情" Background="#3399FF" Foreground="White"
+                                            Click="ViewDetails_Click"
+                                            Tag="{x:Bind}"/>
+                                    <Button Content="下载客户端" Background="#3399FF" Foreground="White"
+                                            Click="DownloadClient_Click" Tag="{x:Bind}"/>
+                                    <Button Content="下载服务端" Background="#33CC66" Foreground="White"
+                                            Click="DownloadServer_Click" Tag="{x:Bind}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </controls:Expander>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

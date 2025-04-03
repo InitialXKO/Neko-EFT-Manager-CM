@@ -1,0 +1,75 @@
+<Page
+    x:Class="Neko.EFT.Manager.X.Pages.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neko.EFT.Manager.X.Pages"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+
+    <Page.Background>
+        <!-- 确保背景图像链接有效 -->
+        <ImageBrush ImageSource="https://api.yimian.xyz/img" Opacity="0.9" Stretch="UniformToFill"/>
+    </Page.Background>
+
+    <Page.Resources>
+        <!-- 定义亚克力背景资源 -->
+        <AcrylicBrush x:Key="AcrylicBackgroundBrush"
+                      
+                      TintColor="#CCFFFFFF"
+                      TintOpacity="0.6"
+                      FallbackColor="#CCFFFFFF"/>
+
+        <!-- 定义文本样式 -->
+        <Style TargetType="TextBlock" x:Key="TitleTextStyle">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="SectionTitleTextStyle">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="10,10,0,5"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="ContentTextStyle">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="10,0,0,5"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Padding="10" Background="{StaticResource AcrylicBackgroundBrush}" CornerRadius="8" Margin="10">
+            <TextBlock Text="关于 Neko EFT Manager Pro" Style="{StaticResource TitleTextStyle}"/>
+        </Grid>
+        <Grid Grid.Row="1" Padding="10" Background="{StaticResource AcrylicBackgroundBrush}" CornerRadius="8" Margin="10">
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="10">
+            <StackPanel Spacing="10">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Text="版本: " FontSize="18" VerticalAlignment="Center"  Style="{StaticResource ContentTextStyle}" />
+                    <HyperlinkButton Name="AVersionHyperlinkButton" Click="AVersionHyperlinkButton_Click" ToolTipService.ToolTip="复制" VerticalAlignment="Center" Padding="5" FontSize="18"/>
+                </StackPanel>
+
+                <TextBlock Text="开发者: Neko17" Style="{StaticResource ContentTextStyle}"/>
+                <TextBlock Text="联系方式: 331916366（QQ）" Style="{StaticResource ContentTextStyle}"/>
+
+                <TextBlock Text="简介:" Style="{StaticResource SectionTitleTextStyle}"/>
+                <TextBlock Text="Neko EFT Manager Pro 是一个综合的SPT服务端-EFT客户端管理工具。它提供了便捷的功能来配置和管理服务端与客户端。" Style="{StaticResource ContentTextStyle}"/>
+
+                <TextBlock Text="功能:" Style="{StaticResource SectionTitleTextStyle}"/>
+                <TextBlock Text="• 自动检测和启动服务器" Style="{StaticResource ContentTextStyle}"/>
+                <TextBlock Text="• 配置文件的查看和编辑" Style="{StaticResource ContentTextStyle}"/>
+                <TextBlock Text="• 日志打包和管理" Style="{StaticResource ContentTextStyle}"/>
+
+                <TextBlock Text="版权信息:" Style="{StaticResource SectionTitleTextStyle}"/>
+                <TextBlock Text="© 2024 Neko EFT Manager Pro. 保留所有权利。" Style="{StaticResource ContentTextStyle}"/>
+            </StackPanel>
+        </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>

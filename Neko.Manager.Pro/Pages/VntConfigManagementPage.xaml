@@ -1,0 +1,209 @@
+﻿<Page
+    x:Class="Neko.EFT.Manager.X.Pages.VntConfigManagementPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neko.EFT.Manager.X.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:converters="using:Neko.EFT.Manager.X.Converters" d:DataContext="{d:DesignInstance Type=local:VntConfig}"
+    mc:Ignorable="d"
+    >
+    
+    <Page.Resources>
+        <converters:StatusToColorConverter x:Key="StatusToColorConverter" />
+        <DataTemplate x:Key="DeviceTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Name}" Margin="10"/>
+                <TextBlock Text="{Binding VirtualIp}" Margin="10"/>
+                <TextBlock Text="{Binding Status}" Margin="10"/>
+                <TextBlock Text="{Binding P2PRelay}" Margin="10"/>
+                <TextBlock Text="{Binding Rt}" Margin="10"/>
+            </StackPanel>
+        </DataTemplate>
+        
+        <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="10,20,10,10" />
+        </Style>
+        <converters:BoolToConnectionTextConverter x:Key="BoolToConnectionTextConverter"/>
+        <converters:BoolToInverseConverter x:Key="BoolToInverseConverter"/>
+
+        <converters:BoolToConnectionColorConverter x:Key="BoolToConnectionColorConverter"/>
+        <converters:IBoolToVisibilityConverter x:Key="IBoolToVisibilityConverter"/>
+    </Page.Resources>
+
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/acg/001.jpg" x:Name="bg1" Stretch="UniformToFill"/>
+    </Page.Background>
+
+    <Grid Background="{StaticResource AcrylicBrush}" CornerRadius="6" Padding="15">
+        <Grid Padding="10" Background="{StaticResource AcrylicBrush}" CornerRadius="8">
+            <!-- 固定标题 -->
+            <StackPanel HorizontalAlignment="Center" Width="1020" Margin="10,0,0,0">
+                <TextBlock Text="VNT 配置管理" Style="{StaticResource SectionHeaderStyle}" FontSize="28" FontWeight="ExtraBold" FontStretch="SemiCondensed" FontStyle="Normal" TextLineBounds="Full" TextDecorations="Underline"/>
+            </StackPanel>
+
+            <Grid Padding="10">
+                <!-- 滚动区域 -->
+                <ScrollViewer Margin="0,70" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"  CornerRadius="8" Background="{StaticResource AcrylicBrush}">
+                    <StackPanel HorizontalAlignment="Center" Width="1000">
+                        <!-- VNT 配置列表 -->
+                        <ListView ItemsSource="{x:Bind VntConfigs}" Margin="0,10" SelectionMode="None" HorizontalAlignment="Center">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="local:VntConfig">
+                                    <Expander
+                Background="{StaticResource AcrylicBrush}"
+                Header="{x:Bind VntName}" 
+                IsExpanded="False" 
+                Margin="0,10"
+                CornerRadius="5"
+                Width="970">
+
+                                        <Expander.HeaderTemplate>
+                                            <DataTemplate x:DataType="local:VntConfig">
+                                                <!-- Header 显示 VNT 配置名称 -->
+                                                <Border Background="Transparent" CornerRadius="8" Padding="8">
+                                                    <Grid>
+                                                        <!-- VNT 配置名称 -->
+                                                        <TextBlock 
+                                    Text="{x:Bind VntName}" 
+                                    Foreground="Black" 
+                                    FontSize="18" 
+                                    FontWeight="Bold" 
+                                    VerticalAlignment="Center"/>
+
+                                                        <!-- 显示连接状态 -->
+                                                        <TextBlock
+                                                            x:Name="ConnectionStatusText"
+                                                            
+                    Text="{Binding ConnectionStatus}" 
+                    Foreground="DarkGray"
+                    FontSize="14" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,0,200,0" />
+
+                                                        <!-- 显示设备名称 -->
+                                                        <TextBlock 
+                                    Text="{x:Bind name}" 
+                                    Foreground="Gray" 
+                                    FontSize="14" 
+                                    VerticalAlignment="Center" 
+                                    HorizontalAlignment="Right" 
+                                    Margin="0,0,20,0"/>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </Expander.HeaderTemplate>
+
+                                        <Expander.Content>
+                                            <!-- 配置详情 -->
+                                            <StackPanel Spacing="10" Width="920">
+                                                <!-- 服务器地址 -->
+                                                <Border Background="{StaticResource AcrylicBrush}" CornerRadius="8" Padding="15" BorderBrush="{StaticResource AcrylicBrush}" BorderThickness="1">
+                                                    <StackPanel>
+                                                        <TextBlock Text="服务器地址：" FontWeight="SemiBold" FontSize="14" />
+                                                        <TextBlock Text="{x:Bind server_address}" TextWrapping="Wrap" Foreground="#333333" />
+                                                    </StackPanel>
+                                                </Border>
+
+                                                <!-- 组网Token -->
+                                                <Border Background="{StaticResource AcrylicBrush}" CornerRadius="8" Padding="15" BorderBrush="{StaticResource AcrylicBrush}" BorderThickness="1">
+                                                    <StackPanel>
+                                                        <TextBlock Text="组网ID：" FontWeight="SemiBold" FontSize="14" />
+                                                        <TextBlock Text="{x:Bind token}" TextWrapping="Wrap" Foreground="#333333" />
+                                                    </StackPanel>
+                                                </Border>
+                                                
+                                                <!-- 组网ip -->
+                                                <Border Background="{StaticResource AcrylicBrush}" CornerRadius="8" Padding="15" BorderBrush="{StaticResource AcrylicBrush}" BorderThickness="1">
+                                                    <StackPanel>
+                                                        <TextBlock Text="组网IP：" FontWeight="SemiBold" FontSize="14" />
+                                                        <TextBlock Text="{x:Bind ip}" TextWrapping="Wrap" Foreground="#333333" />
+                                                    </StackPanel>
+                                                </Border>
+
+                                                <!-- 按钮组 -->
+                                                <Border Background="{StaticResource AcrylicBrush}" CornerRadius="8" Padding="15" BorderBrush="{StaticResource AcrylicBrush}" BorderThickness="1">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
+                                                        <!-- 配置主机 -->
+                                                        <Button Content="配置主机" Click="ConfigHOST_Click" Width="80" />
+                                                        <!-- 配置Fika -->
+                                                        <Button Content="配置Fika" Click="ConfigFIKA_Click" Width="80" />
+                                                        <!-- 设备列表 -->
+                                                        <Button Content="设备列表" Click="DeviceList_Click" Width="80" />
+                                                        <!-- 编辑按钮 -->
+                                                        <Button Content="编辑配置" Click="EditVntConfig_Click" Width="80" />
+                                                        <!-- 删除按钮 -->
+                                                        <Button Content="删除配置" Click="DeleteVntConfig_Click" Width="80" Background="#FF6347" Foreground="White" />
+                                                        
+                                                        <Button Content="强行停止" Click="DisConnect_Click" Width="80" Background="DarkRed" Foreground="White" />
+                                                        <!-- 连接按钮 -->
+                                                        <Button Content="{Binding IsConnected, Converter={StaticResource BoolToConnectionTextConverter}}" Click="ConnectVntConfig_Click" IsEnabled="{Binding  IsConnecting, Mode=OneWay, Converter={StaticResource BoolToInverseConverter}}" Width="80" Background="{Binding IsConnected, Converter={StaticResource BoolToConnectionColorConverter}}" Foreground="White" DataContext="{Binding}" />
+
+                                                        
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </Expander.Content>
+                                    </Expander>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- 添加配置按钮 -->
+            <Button
+                ToolTipService.ToolTip="添加 VNT 配置"
+                Click="OpenAddVntConfigDialog_Click" 
+                HorizontalAlignment="Center" 
+                Margin="0,520,0,0" 
+                Width="64" 
+                Height="64" 
+                Background="Transparent" 
+                BorderThickness="0">
+                <Grid>
+                    <Ellipse Fill="DarkCyan" Width="40" Height="40"/>
+                    <Path Data="M 20,10 L 20,30 M 10,20 L 30,20" Stroke="White" StrokeThickness="3" StrokeLineJoin="Round" />
+                </Grid>
+            </Button>
+
+            <ContentDialog x:Name="AddVntConfigDialog" Title="添加/编辑 VNT 配置"
+            PrimaryButtonClick="AddVntConfigDialog_PrimaryButtonClick"
+            PrimaryButtonText="保存" SecondaryButtonText="取消" DefaultButton="Primary">
+                <StackPanel Padding="20">
+                    <!-- 设备名称 -->
+                    <TextBlock Text="配置名称" Margin="0,5"/>
+                    <TextBox x:Name="VntNameTextBox" PlaceholderText="请输入配置名称" Margin="0,5" TextChanged="TextBox_TextChanged"/>
+
+                    <!-- Token -->
+                    <TextBlock Text="组网ID（填写相同组网ID即可完成组网）" Margin="0,5"/>
+                    <TextBox x:Name="TokenTextBox" PlaceholderText="请输入组网ID" Margin="0,5" TextChanged="TextBox_TextChanged"/>
+
+                    <!-- 组网IP -->
+                    <TextBlock Text="组网IP" Margin="0,5"/>
+                    <TextBox x:Name="IPTextBox" PlaceholderText="请输入组网IP（默认配置请输入10.26.0.X）" Margin="0,5" TextChanged="TextBox_TextChanged"/>
+
+                    <!-- 服务器地址 -->
+                    <TextBlock Text="中继服务器地址" Margin="0,5"/>
+                    <TextBox x:Name="ServerAddressTextBox" PlaceholderText="请输入服务器地址" Margin="0,5" TextChanged="TextBox_TextChanged"/>
+
+                    <!-- 设备名称 -->
+                    <TextBlock Text="设备名称" Margin="0,5"/>
+                    <TextBox x:Name="DeviceNameTextBox" PlaceholderText="设备名称" Margin="0,5" TextChanged="TextBox_TextChanged"/>
+                </StackPanel>
+
+
+                
+
+
+            </ContentDialog>
+
+        </Grid>
+    </Grid>
+</Page>

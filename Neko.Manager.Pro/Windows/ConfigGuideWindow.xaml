@@ -1,0 +1,173 @@
+﻿<Window
+    x:Class="Neko.EFT.Manager.X.Windows.ConfigGuideWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="配置引导">
+    
+    <Window.SystemBackdrop>
+        <DesktopAcrylicBackdrop/>
+    </Window.SystemBackdrop>
+
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="305"/>
+            <!-- 主内容 -->
+            <RowDefinition Height="Auto"/>
+            <!-- 底部导航 -->
+        </Grid.RowDefinitions>
+        <!-- 信息栏 -->
+        <InfoBar x:Name="StepInfoBar"
+                 Title="你已完成首次启动配置"
+                 Message="请点击"
+                 IsClosable="False"
+                 Background="#FF7692"
+                 Foreground="White"
+                 Margin="0,20,0,20"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Top" />
+        <!-- 进度条 -->
+        <ProgressBar x:Name="StepProgressBar" 
+      Minimum="0" 
+      Maximum="100" 
+      Value="0" 
+      Height="30" 
+      Background="#E0E0E0" 
+      Foreground="#2196F3" 
+      Margin="0,10" />
+        <!-- 步骤标题 -->
+        <TextBlock x:Name="StepTitleTextBlock" Margin="0,40,0,0"
+            Text="欢迎使用，由于你是首次启动，请根据引导完成以下配置↓" 
+            FontSize="21" FontWeight="ExtraBold" 
+            Foreground="#333333" 
+            HorizontalAlignment="Center" />
+
+        
+
+        <!-- 可滚动的内容区域 -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="20,80,20,5" Grid.Row="0">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="480" Spacing="20" Height="400">
+               
+
+                <!-- 客户端路径选择 -->
+                <Expander x:Name="InstallPathExpander" Header="① 选择你的客户端路径：" IsExpanded="True" Background="{StaticResource AcrylicBrush}" Width="430">
+                    <toolkit:SettingsCard Padding="10" Background="{StaticResource AcrylicBrush}">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <TextBox x:Name="InstallPathTextBox"
+                                     PlaceholderText="请选择你的客户端路径"
+                                     Text="{Binding InstallPath}"
+                                     Width="280" Height="32"
+                                     CornerRadius="4" IsReadOnly="True"
+                                     Background="#FFFFFF"
+                                     BorderBrush="#CCCCCC"
+                                     Padding="4" />
+                            <Button Content="选择"
+                                    Width="80" Height="32"
+                                    CornerRadius="4"
+                                    Background="#4CAF50"
+                                    Foreground="White"
+                                    BorderBrush="#4CAF50"
+                                    Click="OnChangeInstallPathClicked" />
+                        </StackPanel>
+                    </toolkit:SettingsCard>
+                </Expander>
+
+                <!-- 服务端路径选择 -->
+                <Expander x:Name="ServerPathExpander" Header="② 选择你的服务端路径：" IsExpanded="False" Background="{StaticResource AcrylicBrush}" Width="430">
+                    <toolkit:SettingsCard Padding="10" Background="{StaticResource AcrylicBrush}">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <TextBox x:Name="AkiServerPathTextBox"
+                                     PlaceholderText="请选择你的服务端路径"
+                                     Width="280" Height="32"
+                                     Text="{Binding AkiServerPath}"
+                                     CornerRadius="4" IsReadOnly="True"
+                                     Background="#FFFFFF"
+                                     BorderBrush="#CCCCCC"
+                                     Padding="4" />
+                            <Button Content="选择"
+                                    Width="80" Height="32"
+                                    CornerRadius="4"
+                                    Background="#4CAF50"
+                                    Foreground="White"
+                                    BorderBrush="#4CAF50"
+                                    Click="OnChangeServerPathClicked" />
+                        </StackPanel>
+                    </toolkit:SettingsCard>
+                </Expander>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- 底部导航按钮 -->
+        <Grid Background="Transparent" Grid.Row="1" >
+            
+            <!-- 定义两行：一行用于原有的导航按钮，一行用于本地资源安装按钮 -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- 第一行：底部导航按钮 -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Spacing="20" Margin="0,10,0,15">
+                <Button Content="上一步"
+                Width="100" Height="35"
+                
+                Background="#BDBDBD"
+                Foreground="White"
+                BorderBrush="#BDBDBD"
+                Click="OnPreviousButtonClicked" />
+                <Button x:Name="AddGameButton"
+                Content="添加本地游戏"
+                Click="OnAddGameButtonClicked"
+                Width="150" Height="35"
+                
+                Background="#4CAF50"
+                Foreground="White"
+                BorderBrush="#4CAF50" />
+                <!-- 新增的特殊按钮 -->
+                <Button x:Name="DownloadGameButton"
+                Content="没有游戏？前往下载"
+                Click="OnDownloadGameButtonClicked"
+                Width="150" Height="35"
+                
+                Background="#FF9800"
+                Foreground="White"
+                BorderBrush="#FF9800" />
+                <Button Content="下一步"
+                x:Name="NextButton"
+                Width="100" Height="35"
+                
+                Background="#2196F3"
+                Foreground="White"
+                BorderBrush="#2196F3"
+                Click="OnNextButtonClicked" />
+                <Button x:Name="SkipButton"
+                Content="跳过"
+                Click="OnSkipButtonClicked"
+                Visibility="Collapsed"
+                HorizontalAlignment="Right"
+                Width="100" Height="35"
+                
+                Background="Gray"
+                Foreground="White"
+                BorderBrush="Gray" />
+            </StackPanel>
+
+            <!-- 第二行：通过本地资源安装游戏按钮，居中显示 -->
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20">
+                <Button x:Name="LocalInstallButton"
+                Content="通过本地资源安装游戏"
+                Width="200" Height="35"
+                
+                Background="#009688"
+                Foreground="White"
+                BorderBrush="#009688"
+                Click="OnLocalResourceInstallButtonClicked" />
+            </StackPanel>
+        </Grid>
+
+
+    </Grid>
+</Window>

@@ -1,0 +1,79 @@
+﻿<Page
+    x:Class="Neko.EFT.Manager.X.Pages.ResourceDownloadPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neko.EFT.Manager.X.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:CommunityToolkit.WinUI"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <x:Double x:Key="SettingsCardSpacing">4</x:Double>
+        <Style x:Key="SettingsSectionHeaderTextBlockStyle"
+               BasedOn="{StaticResource BodyStrongTextBlockStyle}"
+               TargetType="TextBlock">
+            <Setter Property="Margin" Value="1,30,0,6" />
+        </Style>
+    </Page.Resources>
+
+    <StackPanel>
+        <ScrollViewer>
+            <Grid Background="{StaticResource AcrylicBrush}">
+                <StackPanel MaxWidth="1000" HorizontalAlignment="Stretch" Spacing="{StaticResource SettingsCardSpacing}">
+
+                    <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="资源下载" FontWeight="Bold" FontSize="18"/>
+
+                    <!-- 服务端版本选择 -->
+                    <controls:SettingsExpander Header="选择服务端版本" HeaderIcon="{ui:FontIcon Glyph=&#xE716;}" CornerRadius="6">
+                        <controls:SettingsExpander.Items>
+                            <controls:SettingsCard Header="选择版本">
+                                <StackPanel>
+                                    <ComboBox x:Name="ServerVersionComboBox" 
+                                              DisplayMemberPath="ServerVersion" 
+                                              SelectedItem="{Binding SelectedServerVersion}"
+                                              SelectedValuePath="ServerVersion"
+                                              Width="300" Margin="10,5" 
+                                              SelectionChanged="ServerVersionComboBox_SelectionChanged">
+                                    </ComboBox>
+
+                                    <TextBlock x:Name="ClientVersionTextBlock" Text="客户端版本: 未选择" Margin="10,5"/>
+                                </StackPanel>
+                            </controls:SettingsCard>
+                        </controls:SettingsExpander.Items>
+                    </controls:SettingsExpander>
+
+                    <controls:SettingsExpander Header="下载资源" HeaderIcon="{ui:FontIcon Glyph=&#xE8C3;}" CornerRadius="6">
+                        <controls:SettingsExpander.Items>
+                            <controls:SettingsCard Header="下载">
+                                <StackPanel>
+                                    <!-- 显示选择的服务端版本 -->
+                                    <TextBlock x:Name="SelectedServerVersionTextBlock" 
+                           Text="已选服务端版本: 未选择" 
+                           Margin="10,5"/>
+
+                                    <!-- 显示选择的客户端版本 -->
+                                    <TextBlock x:Name="SelectedClientVersionTextBlock" 
+                           Text="已选客户端版本: 未选择" 
+                           Margin="10,5"/>
+
+                                    <!-- 下载按钮 -->
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <Button x:Name="DownloadServerResourcesButton" Content="下载服务端资源" Click="DownloadServerResources_Click" Margin="10,5"/>
+                                        <Button x:Name="DownloadClientResourcesButton" Content="下载客户端资源" Click="DownloadClientResources_Click" Margin="10,5"/>
+                                    </StackPanel>
+
+                                    <!-- 显示下载进度 -->
+                                    <ProgressBar x:Name="DownloadProgressBar" Minimum="0" Maximum="100" Value="0" Width="300" Height="20" Margin="10,5" Visibility="Collapsed"/>
+                                </StackPanel>
+                            </controls:SettingsCard>
+                        </controls:SettingsExpander.Items>
+                    </controls:SettingsExpander>
+
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </StackPanel>
+</Page>

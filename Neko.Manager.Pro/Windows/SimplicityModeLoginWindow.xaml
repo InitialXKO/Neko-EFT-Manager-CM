@@ -1,0 +1,82 @@
+﻿<Window
+    x:Class="Neko.EFT.Manager.X.Windows.SimplicityModeLoginWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neko.EFT.Manager.X.Windows"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Window.SystemBackdrop>
+        <DesktopAcrylicBackdrop/>
+    </Window.SystemBackdrop>
+
+    <Grid x:Name="RootGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- App Title Bar -->
+        <Grid x:Name="AppTitleBar" Grid.Row="0" Height="30" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Source="ms-appx:///Assets/ICON.png" HorizontalAlignment="Left" Width="16" Height="16" Margin="8,0" Grid.Column="0"/>
+            <TextBlock x:Name="AppTitleTextBlock" 
+                       Text="Neko EFT Launcher X" 
+                       TextWrapping="NoWrap" 
+                       VerticalAlignment="Center" 
+                       HorizontalAlignment="Left"
+                       FontFamily="{StaticResource BenderFont}" 
+                       Foreground="{StaticResource AppBarItemForegroundThemeBrush}" 
+                       Margin="10,0,0,0" 
+                       Grid.Column="1"/>
+        </Grid>
+
+        <Frame x:Name="MainFrame" Grid.Row="1" />
+
+        <!-- Buttons Panel -->
+        <Grid Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
+            <StackPanel Orientation="Horizontal">
+                <!-- Settings Button -->
+                <Button 
+                    Width="50" 
+                    Height="50" 
+                    ToolTipService.ToolTip="设置"
+                    Background="Transparent"  
+                    BorderBrush="Transparent"
+                    Click="SettingsButton_Click">
+                    <Image 
+                        Source="ms-appx:///Assets/icon/settings.png"
+                        Width="32" 
+                        Height="32" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+                        Stretch="Uniform"/>
+                </Button>
+
+                <!-- Login Button -->
+                <Button 
+                    Width="50" 
+                    Height="50" 
+                    ToolTipService.ToolTip="登录"
+                    Background="Transparent"  
+                    BorderBrush="Transparent"
+                    Click="LoginButton_Click"
+                    Margin="10,0,0,0">
+                   
+                    <Image 
+                        Source="ms-appx:///Assets/icon/login.png"  
+                        Width="32" 
+                        Height="32" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+                        Stretch="Uniform"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

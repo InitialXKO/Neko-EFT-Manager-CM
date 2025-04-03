@@ -1,0 +1,129 @@
+<Page
+    x:Class="Neko.EFT.Manager.X.Pages.AdminPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neko.EFT.Manager.X.Pages"
+    xmlns:controls="using:Neko.EFT.Manager.X.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/bg040.png" x:Name="bg1" Stretch="UniformToFill" />
+    </Page.Background>
+
+    <Grid Margin="10">
+
+        <Popup x:Name="ParentedPopup" HorizontalOffset="200" VerticalOffset="200" IsOpen="False">
+            <controls:PopupTest/>
+        </Popup>
+
+        <StackPanel>
+            <Canvas>
+                <Border BorderBrush="Gray" BorderThickness="1" Padding="10" Margin="0,0,0,20" CornerRadius="5" Width="450" Height="Auto" x:FieldModifier="Public" Canvas.Left="650" x:Name="NoticeMC" >
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.45">
+                            <GradientStop Color="#FFD1DC" Offset="0"/>
+                            <GradientStop Color="#7ED8E5" Offset="0.5"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="300" Margin="20">
+                        <StackPanel x:Name="AccountDataPanel" CornerRadius="6">
+                            <StackPanel.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#FFD1DC" Offset="1"/>
+                                    <GradientStop Color="#7ED8E5" Offset="0"/>
+                                </LinearGradientBrush>
+                            </StackPanel.Background>
+                            <!-- 动态填充账号数据 -->
+                        </StackPanel >
+                    </ScrollViewer>
+                </Border>
+            </Canvas>
+            <Canvas>
+            </Canvas>
+            <Canvas>
+                <Border CornerRadius="10" Padding="20" Margin="20" Canvas.Top="0" Canvas.Left="0">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="1,0.3" EndPoint="0,0">
+                            <GradientStop Color="#FFD1DC" Offset="0.4"/>
+                            <GradientStop Color="#7ED8E5" Offset="0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <StackPanel>
+                        <TextBlock Name="AdminText" Width="249" HorizontalAlignment="Left" Text="服务器管理员" FontSize="20" Foreground="#3d3d3f" Margin="0,0,0,10" IsHitTestVisible="False" />
+                    </StackPanel>
+                </Border>
+
+                <Border CornerRadius="10" Padding="20" Margin="20" Canvas.Top="330">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#FFD1DC" Offset="0"/>
+                            <GradientStop Color="#f6a9ce" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+
+                    <StackPanel>
+                        <TextBlock Name="AddressBox" Width="249" HorizontalAlignment="Left" Text="请选择服务器..." FontSize="16" Foreground="#3d3d3f" Margin="0,0,0,10" IsHitTestVisible="False" />
+                        <TextBlock Name="ServerStatusTextBlock" Width="249" HorizontalAlignment="Left" Text="服务器状态：未知" Foreground="#3d3d3f" FontSize="16"/>
+                    </StackPanel>
+                </Border>
+                
+            </Canvas>
+            <Canvas>
+                <Border CornerRadius="10" Padding="20" Margin="20" Canvas.Top="330" Canvas.Left="309">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="1,0.3" EndPoint="0,0">
+                            <GradientStop Color="#FFD1DC" Offset="0.4"/>
+                            <GradientStop Color="#7ED8E5" Offset="0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <StackPanel>
+                        <TextBlock Name="ServerVersion" Width="249" HorizontalAlignment="Left" Text="服务器运行版本" FontSize="16" Foreground="#3d3d3f" Margin="0,0,0,10" IsHitTestVisible="False" />
+                        <TextBlock Name="ServerEFTVersion" Width="249" HorizontalAlignment="Left" Text="可用客户端" Foreground="#3d3d3f" FontSize="16"/>
+                    </StackPanel>
+                </Border>
+            </Canvas>
+
+            <Canvas>
+                <Canvas.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#FFD1DC" Offset="0"/>
+                        <GradientStop Color="#7ED8E5" Offset="1"/>
+                    </LinearGradientBrush>
+                </Canvas.Background>
+                <TextBox Name="UsernameBox" Canvas.Left="20" Canvas.Top="472" Width="290" HorizontalAlignment="Left" Text="{Binding Username, Mode=TwoWay}" PlaceholderText="输入用户名..." TextChanged="InputBox_TextChanged" Header="Username" HeaderTemplate="{StaticResource UsernameHeaderTemplate}" />
+            </Canvas>
+            <Canvas>
+                <Canvas.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#FFD1DC" Offset="0"/>
+                        <GradientStop Color="#7ED8E5" Offset="1"/>
+                    </LinearGradientBrush>
+                </Canvas.Background>
+                <PasswordBox Name="PasswordBox" Canvas.Left="328" Canvas.Top="472" Width="290" HorizontalAlignment="Left" Password="{Binding Password, Mode=TwoWay}" PlaceholderText="输入密码..." PasswordChanged="PasswordBox_PasswordChanged" Header="Password" HeaderTemplate="{StaticResource PasswordHeaderTemplate}" />
+            </Canvas>
+            <Canvas>
+                <Canvas.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#FFD1DC" Offset="0"/>
+                        <GradientStop Color="#7ED8E5" Offset="1"/>
+                    </LinearGradientBrush>
+                </Canvas.Background>
+                <CheckBox Name="RememberMeCheck" Content="记住我" Canvas.Left="655" Canvas.Top="460" IsChecked="{Binding RememberLogin, Mode=TwoWay}" Foreground="#F9F8EB" />
+            </Canvas>
+            <Canvas>
+                <Canvas.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#FFD1DC" Offset="0"/>
+                        <GradientStop Color="#7ED8E5" Offset="1"/>
+                    </LinearGradientBrush>
+                </Canvas.Background>
+                <Button Name="ConnectButton" Content="注册" Canvas.Left="820" Canvas.Top="435" Height="90" Width="220" ToolTipService.ToolTip="登录到服务器." Opacity="0.92" Click="ConnectButton_Click" FontSize="15" CornerRadius="10"/>
+            </Canvas>
+
+            
+        </StackPanel>
+    </Grid>
+</Page>

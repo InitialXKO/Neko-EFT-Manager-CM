@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Neko.EFT.Manager.X.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   xmlns:local="using:Neko.EFT.Manager.X.Classes"
+
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+
+    <Page.Background>
+        <ImageBrush ImageSource="ms-appx:///Assets/bg050.png" Opacity="0.2" Stretch="UniformToFill" x:Name="SettingsBG"/>
+    </Page.Background>
+
+    <Page.Resources>
+
+        <AcrylicBrush x:Key="AcrylicBrush"
+  TintColor="#CCFFFFFF"
+  TintOpacity="0.4"
+  FallbackColor="#FFFFFF"/>
+        <!-- 其他已有资源 -->
+        <DataTemplate x:Key="ServerConfigTemplate">
+
+            <StackPanel>
+                <TextBlock Text="名称：" />
+                <TextBox Text="{Binding name}"  x:Name="NameTextBox" />
+                <TextBlock Text="地址：" />
+                <TextBox Text="{Binding serverAddress}"  x:Name="AddressTextBox" />
+                <TextBlock Text="端口：" />
+                <TextBox Text="{Binding newPort}"  x:Name="PortTextBox" />
+                <Button Content="编辑" Click="EditButton_Click"/>
+                <Button Content="删除" Click="DeleteButton_Click"/>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+
+
+    <Grid x:Name="RootGrid" Padding="3">
+        <Grid.Background>
+
+            <LinearGradientBrush x:Name="DynamicGradientBrush" StartPoint="0,0" EndPoint="1,0.45" >
+                <GradientStop Color="#FFD1DC" Offset="0" />
+                <GradientStop Color="#7ED8E5" Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!-- 新的内容 Grid，带有亚克力材质背景 -->
+        <Grid Background="{StaticResource AcrylicBrush}" CornerRadius="10" Margin="10" Padding="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <ScrollViewer Grid.Row="0" x:Name="SettingsViewer" Margin="0,0,0,0">
+                <StackPanel Margin="10">
+                    <!-- 现有内容移到这里 -->
+                    <!-- 启动器设置 -->
+                    <TextBlock Text="启动器设置" Margin="5" VerticalAlignment="Center"/>
+                    <StackPanel CornerRadius="8" BorderBrush="Gray" BorderThickness="1" Padding="10">
+                        <CheckBox Content="在游戏启动时关闭" ToolTipService.ToolTip="在游戏启动成功后关闭启动器." IsChecked="{Binding CloseAfterLaunch, Mode=TwoWay}"/>
+                        <CheckBox Content="查看更新" ToolTipService.ToolTip="启动启动器时自动检查更新." IsChecked="{Binding LookForUpdates, Mode=TwoWay}"/>
+                        <!-- 在线玩家列表刷新时间设置 -->
+                        <TextBlock Text="在线玩家列表刷新时间 (秒):" Margin="5" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBox Text="{Binding RefreshInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" />
+                            <TextBlock Text="秒" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        </StackPanel>
+
+
+                    </StackPanel>
+
+                    <!-- EFT设置 -->
+                    <TextBlock Text="EFT设置" Margin="5" VerticalAlignment="Center"/>
+                    <StackPanel CornerRadius="8" BorderBrush="Gray" BorderThickness="1" Padding="10">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="EFT安装目录:" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBox PlaceholderText="设置EFT安装目录..." Margin="0,0,10,0" MinWidth="425" MaxWidth="425" IsReadOnly="False" Text="{Binding InstallPath}" x:Name="InstallPathTextbox"/>
+                            <Button Name="ChangeInstallButton" Content="更改" Margin="0,0,10,0" ToolTipService.ToolTip="更改EFT安装目录." Click="ChangeInstallButton_ClickAsync"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="EFT 版本:" Margin="0,10,10,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding TarkovVersion, Mode=TwoWay}" Margin="0,10,10,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- SPT服务端设置 -->
+                    <TextBlock Text="SPT服务端设置" Margin="5" VerticalAlignment="Center"/>
+                    <StackPanel CornerRadius="8" BorderBrush="Gray" BorderThickness="1" Padding="10">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="SPT服务端目录:" VerticalAlignment="Center"/>
+                            <TextBox PlaceholderText="设置SPT安装目录..." Margin="5" MinWidth="397" MaxWidth="425" IsReadOnly="False" Text="{Binding AkiServerPath}"/>
+                            <Button Name="ChangeAkiServerPath" Content="更改" Margin="5" ToolTipService.ToolTip="更改SPT服务端安装目录（如你是一般流程安装离线版，请选择游戏相同目录）" Click="ChangeAkiServerPath_ClickAsync" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- 服务端控制台 -->
+                    <TextBlock Text="服务端控制台" Margin="5" VerticalAlignment="Center"/>
+                    <StackPanel CornerRadius="8" BorderBrush="Gray" BorderThickness="1" Padding="10">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="字体系列:" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBlock Name="ConsoleFontFamilyPreview" Margin="0,0,10,0" VerticalAlignment="Center" FontFamily="{Binding ConsoleFontFamily}" Text="{Binding ConsoleFontFamily}"/>
+                            <Button Name="ConsoleFamilyFontChange" Content="更改" Click="ConsoleFamilyFontChange_Click"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="字体颜色:" Margin="0,10,10,0" VerticalAlignment="Center"/>
+                            <Rectangle Name="ConsoleColorPreview" Width="30" Height="15" Margin="0,10,10,0" Fill="{Binding ConsoleFontColorV}"/>
+                            <Button Name="ColorChangeButton" Content="更改" Margin="0,10,0,0" Click="ColorChangeButton_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- 服务器源设置 -->
+                    <TextBlock Text="服务器源设置" Margin="5" VerticalAlignment="Center"/>
+                    <ScrollViewer Grid.Row="0" x:Name="ServerSettingsViewer" BorderBrush="Gray" CornerRadius="8">
+                        <StackPanel Margin="0" BorderBrush="Gray" BorderThickness="1" CornerRadius="8">
+                            <TextBlock Text="服务器源设置" Margin="5" VerticalAlignment="Center"/>
+                            <ListView x:Name="ServerSourcesListView" ItemsSource="{x:Bind serverSources}" Loaded="ServerSourcesListView_Loaded">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="local:ServerSourceConfig">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{x:Bind Name}" Margin="5"/>
+                                            <Button Content="编辑" Margin="5" Click="EditServerSourceButton_Click"/>
+                                            <Button Content="删除" Margin="5" Click="DeleteServerSourceButton_Click"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <Button Content="添加新源" Margin="5" Click="AddServerSourceButton_Click"/>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <!-- 当前服务器源 -->
+                    <TextBlock Text="当前服务器源" Margin="5" VerticalAlignment="Center"/>
+                    <StackPanel Margin="0" BorderBrush="Gray" BorderThickness="1" CornerRadius="8">
+                        <ComboBox x:Name="CurrentServerSourceComboBox" ItemsSource="{x:Bind serverSources}" DisplayMemberPath="Name" SelectionChanged="CurrentServerSourceComboBox_SelectionChanged" Grid.Row="1"/>
+                    </StackPanel>
+
+                    <!-- 关于 -->
+                    <TextBlock Text="关于" Margin="5" VerticalAlignment="Center"/>
+                    <StackPanel CornerRadius="8" BorderBrush="Gray" BorderThickness="1" Padding="10">
+                        <HyperlinkButton Margin="10" Name="AboutButton" Click="AboutButton_Click" Content="关于 Neko EFT Manager Pro " VerticalAlignment="Center" Padding="5"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+
+            <StackPanel Margin="0,5" Orientation="Horizontal" Grid.Row="1" x:Name="VersionStackPanel">
+                <TextBlock Margin="10" Text="Manager 版本: "/>
+                <HyperlinkButton Name="VersionHyperlinkButton" Click="VersionHyperlinkButton_Click" ToolTipService.ToolTip="复制" VerticalAlignment="Center" Padding="5"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+
+</Page>

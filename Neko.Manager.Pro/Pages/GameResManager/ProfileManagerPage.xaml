@@ -1,0 +1,92 @@
+﻿<Page
+    x:Class="Neko.EFT.Manager.X.Pages.GameResManager.ProfileManagerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 操作工具栏 -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10">
+            <Button x:Name="DeleteProfileButton" 
+                    Content="删除存档" 
+                    Click="DeleteProfile_Click"
+                    Margin="5" Width="100"/>
+            <Button x:Name="BackupProfileButton" 
+                    Content="备份存档" 
+                    Click="BackupProfile_Click"
+                    Margin="5" Width="100"/>
+            <Button x:Name="RestoreProfileButton" 
+                    Content="还原备份" 
+                    Click="RestoreProfile_Click"
+                    Margin="5" Width="100"/>
+            <Button x:Name="DeleteBackupButton" 
+                    Content="删除备份" 
+                    Click="DeleteBackup_Click"
+                    Margin="5" Width="100"/>
+        </StackPanel>
+
+        <!-- 存档列表 -->
+        <ListView x:Name="ProfileListView" 
+                 Grid.Row="1" 
+                 SelectionChanged="OnProfileSelectionChanged"
+                 SelectionMode="Single">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="10">
+                        <TextBlock FontWeight="Bold" Text="{Binding Username}"/>
+                        <TextBlock Text="{Binding PmcNickname}"/>
+                        <TextBlock Text="{Binding ScavNickname}"/>
+                        <TextBlock FontSize="10" Text="{Binding LastModified}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- 备份列表 -->
+        <ListView x:Name="BackupListView" 
+                 Grid.Row="2" 
+                 SelectionChanged="OnBackupSelectionChanged"
+                 SelectionMode="Single"
+                 Height="200">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="10">
+                        <TextBlock FontWeight="Bold" Text="{Binding FileName}"/>
+                        <TextBlock Text="{Binding CreatedDate}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- 加载状态指示 -->
+        <ProgressRing x:Name="LoadingRing"
+                     IsActive="False"
+                     Width="50"
+                     Height="50"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"/>
+        <TextBlock x:Name="LoadingText"
+                   Text="正在加载..."
+                   Visibility="Collapsed"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Margin="0,60,0,0"/>
+
+        <ProgressRing x:Name="BackupLoadingRing"
+                     Grid.Row="2"
+                     IsActive="False"
+                     Width="30"
+                     Height="30"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Top"
+                     Margin="0,10,10,0"/>
+    </Grid>
+</Page>

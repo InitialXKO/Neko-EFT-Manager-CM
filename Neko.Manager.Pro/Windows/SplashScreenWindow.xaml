@@ -1,0 +1,16 @@
+﻿<Window
+    x:Class="Neko.EFT.Manager.X.Windows.SplashScreenWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neko.EFT.Manager.X"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.Background>
+            <ImageBrush  ImageSource="ms-appx:///Assets/bg040.png" x:Name="BackgroundImage" Stretch="UniformToFill" />
+        </Grid.Background>
+        <TextBlock x:Name="StatusSTextBlock" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White" FontSize="20"  Text="正在加载..." FontFamily="{StaticResource BenderFont}" Margin="15"/>
+        <TextBlock x:Name="StatusTextBlock" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="White" FontSize="32"  Text="Neko EFT Manager Pro" FontFamily="{StaticResource BenderFont}" Margin="15"/>
+    </Grid>
+</Window>

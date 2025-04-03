@@ -1,0 +1,167 @@
+﻿<Page
+    x:Class="Neko.EFT.Manager.X.Pages.Setting2Page"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Neko.EFT.Manager.X.Classes"
+    
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:CommunityToolkit.WinUI"
+    xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <!-- Spacing and styles -->
+        <x:Double x:Key="SettingsCardSpacing">4</x:Double>
+        <Style x:Key="SettingsSectionHeaderTextBlockStyle"
+               BasedOn="{StaticResource BodyStrongTextBlockStyle}"
+               TargetType="TextBlock">
+            <Setter Property="Margin" Value="1,30,0,6" />
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer>
+        <Grid Background="{StaticResource AcrylicBrush}">
+            <StackPanel MaxWidth="1000" HorizontalAlignment="Stretch" Spacing="{StaticResource SettingsCardSpacing}">
+
+                <!-- 启动器设置 -->
+                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="启动器设置" FontWeight="Bold"  FontSize="18"/>
+                <controls:SettingsExpander Header="启动器设置" HeaderIcon="{ui:FontIcon Glyph=&#xE716;}" CornerRadius="6">
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard Description="在游戏启动时关闭管理器"
+                                               Header="自动关闭">
+                            <ToggleSwitch IsOn="{Binding CloseAfterLaunch, Mode=TwoWay}" OnContent="开启"
+              OffContent="关闭"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard Description="启动启动器时自动检查更新."
+                                               Header="查看更新">
+                            <ToggleSwitch IsOn="{Binding LookForUpdates, Mode=TwoWay}" OnContent="开启"
+              OffContent="关闭"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard Header="在线玩家列表刷新时间">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Text="{Binding RefreshInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" />
+                                <TextBlock Text="秒" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+
+                <!-- EFT设置 -->
+                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="EFT设置" FontWeight="Bold"  FontSize="18"/>
+                <controls:SettingsExpander Header="EFT设置" HeaderIcon="{ui:FontIcon Glyph=&#xE74C;}" CornerRadius="6">
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard Header="EFT安装目录">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox PlaceholderText="设置EFT安装目录..." Text="{Binding InstallPath}" MinWidth="425" />
+                                <Button Content="更改" Click="ChangeInstallButton_ClickAsync" Width="80"/>
+                            </StackPanel>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard Header="EFT版本">
+                            <TextBlock Text="{Binding TarkovVersion, Mode=TwoWay}" />
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+
+                <!-- SPT服务端设置 -->
+                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="SPT服务端设置" FontWeight="Bold"  FontSize="18"/>
+                <controls:SettingsExpander Header="SPT服务端设置" HeaderIcon="{ui:FontIcon Glyph=&#xE8F4;}" CornerRadius="6">
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard Header="SPT服务端目录">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox PlaceholderText="设置SPT安装目录..." Text="{Binding AkiServerPath}"  MinWidth="425"/>
+                                <Button Content="更改" Click="ChangeAkiServerPath_ClickAsync" Width="80"/>
+                            </StackPanel>
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+
+                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="SPT服务端控制台" FontWeight="Bold"  FontSize="18"/>
+                <controls:SettingsExpander Header="SPT服务端控制台设置" HeaderIcon="{ui:FontIcon Glyph=&#xE8F4;}" CornerRadius="6">
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard Header="SPT服务端控制台设置">
+                            <StackPanel Orientation="Horizontal" Padding="10">
+                                <TextBlock Text="字体系列:" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                <TextBlock Name="ConsoleFontFamilyPreview" Margin="0,0,10,0" VerticalAlignment="Center" FontFamily="{Binding ConsoleFontFamily}" Text="{Binding ConsoleFontFamily}"/>
+                                <Button Name="ConsoleFamilyFontChange" Content="更改" Click="ConsoleFamilyFontChange_Click" Margin="0,0,30,0"/>
+                                <TextBlock Text="字体颜色:" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                <Rectangle Name="ConsoleColorPreview" Width="30" Height="15" Margin="0,0,10,0" Fill="{Binding ConsoleFontColorV}"/>
+                                <Button Name="ColorChangeButton" Content="更改" Margin="0,0,0,0" Click="ColorChangeButton_Click"/>
+                            </StackPanel>
+
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+
+                <!-- 服务器源设置 -->
+                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="服务器源设置" FontWeight="Bold" FontSize="18"/>
+                <controls:SettingsExpander Header="服务器源设置" HeaderIcon="{ui:FontIcon Glyph=&#xE8F4;}" CornerRadius="6">
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard Header="服务器源列表">
+                            <StackPanel>
+                                <ListView x:Name="ServerSourcesListView" ItemsSource="{x:Bind serverSources}" Loaded="ServerSourcesListView_Loaded">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="local:ServerSourceConfig">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{x:Bind Name}" Margin="5"/>
+                                                <Button Content="编辑" Margin="5" Click="EditServerSourceButton_Click"/>
+                                                <Button Content="删除" Margin="5" Click="DeleteServerSourceButton_Click"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard Header="添加新源">
+                            <Button Content="添加新源" Margin="5" Click="AddServerSourceButton_Click"/>
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+
+                <!-- 当前服务器源 -->
+                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="当前服务器源" FontWeight="Bold" FontSize="18"/>
+                <controls:SettingsExpander Header="当前服务器源" HeaderIcon="{ui:FontIcon Glyph=&#xE8F4;}" CornerRadius="6">
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard Header="选择服务器源">
+                            <ComboBox x:Name="CurrentServerSourceComboBox" ItemsSource="{x:Bind serverSources}" DisplayMemberPath="Name" SelectionChanged="CurrentServerSourceComboBox_SelectionChanged"/>
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+
+
+                <!-- 关于 -->
+                <!--  Example 'About' section  -->
+                <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" FontWeight="Bold"  FontSize="18"
+                           Text="关于" />
+
+                <controls:SettingsExpander Description="© 2024. All rights reserved."
+                                           CornerRadius="6"
+                                           Header="Neko EFT Manager Pro"
+                                           HeaderIcon="{ui:BitmapIcon Source=ms-appx:///Assets/AppTitleBar.scale-200.png}">
+                    <TextBlock win:IsTextSelectionEnabled="True"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               x:Name="VersionTextBlock"
+                               Text="Version" />
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard HorizontalContentAlignment="Left"
+                                               ContentAlignment="Left">
+                            <StackPanel Margin="-12,0,0,0"
+                                        Orientation="Vertical">
+                                
+                                <HyperlinkButton Content="加入官方QQ群" Click="neko17link_Click"/>
+                                <HyperlinkButton Content="打开ODDBA发布贴" Click="oddbalink_Click"/>
+                                <HyperlinkButton Content="前往爱发电支持作者" Click="afdlink_Click" />
+                            </StackPanel>
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+                <HyperlinkButton Margin="0,8,0,0"
+                                 Content="收集日志信息" />
+
+
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>
