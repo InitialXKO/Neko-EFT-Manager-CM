@@ -1,4 +1,4 @@
-# Neko EFT Manager X
+# Neko EFT Manager X 社区版
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![Windows](https://img.shields.io/badge/Platform-Windows-blue.svg)](https://www.microsoft.com/windows)
