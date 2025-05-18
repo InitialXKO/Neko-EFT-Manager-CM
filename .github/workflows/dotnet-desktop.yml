@@ -44,7 +44,7 @@ jobs:
         Configuration: ${{ matrix.configuration }}
 
     - name: Build  
-      run: msbuild.exe $env:Solution_Name /p:platform="Any CPU" /p:Configuration=$env:Configuration /p:PackageOutputPath=.\dist
+      run: msbuild.exe $env:Solution_Name /p:Configuration=$env:Configuration /p:PackageOutputPath=.\dist
 
     - name: Create Release
       id: create_release
