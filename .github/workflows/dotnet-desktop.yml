@@ -86,9 +86,6 @@ jobs:
     - name: Create the app package
       run: msbuild $env:Solution_Name /p:platform="Any CPU" /p:Configuration=$env:Configuration /p:PackageOutputPath=.\dist
       env:
-        Appx_Bundle: Always
-        Appx_Bundle_Platforms: x86|x64
-        Appx_Package_Build_Mode: StoreUpload
         Configuration: ${{ matrix.configuration }}
 
     # Upload the build: https://github.com/marketplace/actions/upload-a-build-artifact
