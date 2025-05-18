@@ -64,5 +64,5 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ${{ github.workspace }}/bin/Release/mame-ao.exe
-        asset_name: mame-ao.exe
+        asset_name: *.*
         asset_content_type: application/octet-stream
