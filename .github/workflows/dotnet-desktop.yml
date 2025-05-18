@@ -12,6 +12,7 @@ jobs:
     strategy:
       matrix:
         configuration: [Debug, Release]
+        platform: [Any CPU]
 
     runs-on: windows-latest  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
@@ -39,12 +40,13 @@ jobs:
       run: nuget restore Neko.Manager.sln 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
-      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration /p:Platform="$env:Platform"
       env:
         Configuration: ${{ matrix.configuration }}
+        Platform: ${{ matrix.platform }}
 
     - name: Build  
-      run: msbuild.exe $env:Solution_Name /p:Configuration=$env:Configuration /p:PackageOutputPath=.\dist
+      run: msbuild.exe $env:Solution_Name /p:Configuration=$env:Configuration /p:PackageOutputPath=.\dist /p:Platform="$env:Platform"
 
     - name: Create Release
       id: create_release
